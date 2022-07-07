@@ -4,7 +4,6 @@ import Login from '../screens/Login';
 import { SignIn } from '../screens/SignIn';
 import { CreateUser } from '../screens/CreateUser';
 const { Navigator, Screen } = createNativeStackNavigator();
-
 export const AppRoutes = () => {
 	return (
 		<Navigator

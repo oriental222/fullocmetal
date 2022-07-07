@@ -7,7 +7,6 @@ export const GlobalContextProvider = ({ children }) => {
 	const [splashLoaded, setSplashLoaded] = useState(false);
 	const [globalMessage, setGlobalMessage] = useState({ visible: false });
 	const [fullocModal, setFullocModal] = useState({});
-
 	const showError = (message) => {
 		setGlobalMessage({ visible: true, type: 'error', title: 'Ops... Algo de errado aconteceu', message });
 	};

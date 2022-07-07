@@ -2,7 +2,6 @@ import React from 'react';
 import Animated, { interpolate, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 import { BorderlessButton } from 'react-native-gesture-handler';
 import PeoplePadrao from '../../assets/user-padrao.png';
-
 import { Close, Logout, ProfileImage, ToogleWrapper } from './styles';
 import { useAuthContext } from '../../hooks/useAuth';
 
