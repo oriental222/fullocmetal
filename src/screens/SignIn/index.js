@@ -1,142 +1,157 @@
-import React, { useRef, useState } from 'react';
-import { KeyboardAvoidingView, ScrollView, StatusBar } from 'react-native';
-import { Button } from '../../components/Button';
+import React, { useRef, useState } from "react";
+import { KeyboardAvoidingView, ScrollView, StatusBar } from "react-native";
+import { Button } from "../../components/Button";
 import {
-	BackWrapper,
-	ButtonContainer,
-	ButtonLink,
-	ButtonWrapper,
-	Container,
-	EmailButton,
-	Form,
-	Input,
-	InputWrapper,
-	LabelLink,
-	LogoWrapper,
-	PasswordButton,
-	PasswordShowButton,
-	RoadContainer,
-	SubTitle,
-	Title,
-} from './styles';
-import { useAuthContext } from '../../hooks/useAuth';
-import { useGlobalContext } from '../../hooks/useGlobalVariables';
-import Logo from '../../assets/logo.svg';
-import { useTheme } from 'styled-components';
-import { BackButton } from '../../components/BackButton';
-import { ModalPassword } from './components/modal';
+  BackWrapper,
+  ButtonContainer,
+  ButtonLink,
+  ButtonWrapper,
+  Container,
+  EmailButton,
+  Form,
+  Input,
+  InputWrapper,
+  LabelLink,
+  LogoWrapper,
+  PasswordButton,
+  PasswordShowButton,
+  RoadContainer,
+  SubTitle,
+  Title,
+} from "./styles";
+import { useAuthContext } from "../../hooks/useAuth";
+import { useGlobalContext } from "../../hooks/useGlobalVariables";
+import Logo from "../../assets/logo.svg";
+import { useTheme } from "styled-components";
+import { BackButton } from "../../components/BackButton";
+import { ModalPassword } from "./components/modal";
 
 export const SignIn = ({ navigation }) => {
-	const [email, setEmail] = useState('');
-	const emailRef = useRef(null);
-	const [password, setPassword] = useState('');
-	const passwordRef = useRef(null);
-	const [isFocuedEmail, setIsFocuedEmail] = useState(false);
-	const [isFocuedPassword, setIsFocuedPassword] = useState(false);
+  const [email, setEmail] = useState("");
+  const emailRef = useRef(null);
+  const [password, setPassword] = useState("");
+  const passwordRef = useRef(null);
+  const [isFocuedEmail, setIsFocuedEmail] = useState(false);
+  const [isFocuedPassword, setIsFocuedPassword] = useState(false);
 
-	const [toogleModal, setToogleModal] = useState(false);
-	const { signInWithFirebase } = useAuthContext();
-	const { showSuccess, showError, isLoading } = useGlobalContext();
-	const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [toogleModal, setToogleModal] = useState(false);
+  const { signInWithFirebase } = useAuthContext();
+  const { showSuccess, showError, isLoading } = useGlobalContext();
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
-	const openModal = () => {
-		setToogleModal(true);
-	};
-	const closeModal = () => {
-		setToogleModal(false);
-	};
+  const openModal = () => {
+    setToogleModal(true);
+  };
+  const closeModal = () => {
+    setToogleModal(false);
+  };
 
-	const theme = useTheme();
+  const theme = useTheme();
 
-	const emailFocus = () => {
-		emailRef?.current?.focus();
-		setIsFocuedEmail(true);
-	};
-	const passwordFocus = () => {
-		passwordRef?.current?.focus();
-		setIsFocuedPassword(true);
-	};
-	const removeFocusEmail = () => {
-		setIsFocuedEmail(false);
-	};
-	const removeFocusPassword = () => {
-		setIsFocuedPassword(false);
-	};
+  const emailFocus = () => {
+    emailRef?.current?.focus();
+    setIsFocuedEmail(true);
+  };
+  const passwordFocus = () => {
+    passwordRef?.current?.focus();
+    setIsFocuedPassword(true);
+  };
+  const removeFocusEmail = () => {
+    setIsFocuedEmail(false);
+  };
+  const removeFocusPassword = () => {
+    setIsFocuedPassword(false);
+  };
 
-	return (
-		<>
-			<ScrollView style={{ backgroundColor: theme.colors.header }} showsVerticalScrollIndicator={false}>
-				<KeyboardAvoidingView behavior="position">
-					<BackButton onPress={() => navigation.goBack()} />
-					<Container>
-						<RoadContainer />
-						<Title>Estamos {'\n'}quase lá.</Title>
-						<SubTitle>
-							Faça seu login para começar{'\n'}
-							uma experiência incrível!
-						</SubTitle>
-						<Form>
-							{/* <LogoWrapper>
+  return (
+    <>
+      <ScrollView
+        style={{ backgroundColor: theme.colors.header }}
+        showsVerticalScrollIndicator={false}
+      >
+        <KeyboardAvoidingView behavior="position">
+          <BackButton onPress={() => navigation.goBack()} />
+          <Container>
+            <RoadContainer />
+            <Title>Estamos {"\n"}quase lá.</Title>
+            <SubTitle>
+              Faça seu login para começar{"\n"}
+              uma experiência incrível!
+            </SubTitle>
+            <Form>
+              {/* <LogoWrapper>
 						<Logo height={150} width={150} />
 					</LogoWrapper> */}
 
-							<InputWrapper>
-								<EmailButton focused={isFocuedEmail || !!email} key={'email'} onPress={emailFocus} />
-								<Input
-									focused={isFocuedEmail}
-									onBlur={removeFocusEmail}
-									onFocus={emailFocus}
-									placeholder="E-mail"
-									keyboardType="email-address"
-									value={email}
-									autoCorrect={false}
-									autoCapitalize="none"
-									onChangeText={setEmail}
-									ref={emailRef}
-								/>
-							</InputWrapper>
-							<InputWrapper>
-								<PasswordButton focused={isFocuedPassword || !!password} key={'senha'} onPress={passwordFocus} />
-								<Input
-									focused={isFocuedPassword}
-									onBlur={removeFocusPassword}
-									onFocus={passwordFocus}
-									secureTextEntry={!isPasswordVisible}
-									placeholder="Senha"
-									value={password}
-									onChangeText={setPassword}
-									ref={passwordRef}
-									autoCapitalize="none"
-								/>
-								<PasswordShowButton
-									focused={isFocuedPassword}
-									show={isPasswordVisible}
-									onPress={() => setIsPasswordVisible(!isPasswordVisible)}
-								/>
-							</InputWrapper>
-							<ButtonLink onPress={openModal}>
-								<LabelLink>Esqueci Senha</LabelLink>
-							</ButtonLink>
-							<ButtonContainer>
-								<ButtonWrapper>
-									<Button isLoading={isLoading} title="Entrar" onPress={() => signInWithFirebase(email, password)} />
-								</ButtonWrapper>
-								<ButtonWrapper>
-									<Button
-										titleColor={theme.colors.title}
-										title="Criar conta gratuita"
-										onPress={() => navigation.navigate('CreateUser')}
-										color={theme.colors.background_secondary}
-									/>
-								</ButtonWrapper>
-							</ButtonContainer>
-						</Form>
-					</Container>
-				</KeyboardAvoidingView>
-			</ScrollView>
-			<ModalPassword isVisible={toogleModal} closeModal={closeModal} />
-		</>
-	);
+              <InputWrapper>
+                <EmailButton
+                  focused={isFocuedEmail || !!email}
+                  key={"email"}
+                  onPress={emailFocus}
+                />
+                <Input
+                  focused={isFocuedEmail}
+                  onBlur={removeFocusEmail}
+                  onFocus={emailFocus}
+                  placeholder="E-mail"
+                  keyboardType="email-address"
+                  value={email}
+                  autoCorrect={false}
+                  autoCapitalize="none"
+                  onChangeText={setEmail}
+                  ref={emailRef}
+                />
+              </InputWrapper>
+              <InputWrapper>
+                <PasswordButton
+                  focused={isFocuedPassword || !!password}
+                  key={"senha"}
+                  onPress={passwordFocus}
+                />
+                <Input
+                  focused={isFocuedPassword}
+                  onBlur={removeFocusPassword}
+                  onFocus={passwordFocus}
+                  secureTextEntry={!isPasswordVisible}
+                  placeholder="Senha"
+                  value={password}
+                  onChangeText={setPassword}
+                  ref={passwordRef}
+                  autoCapitalize="none"
+                />
+                <PasswordShowButton
+                  focused={isFocuedPassword}
+                  show={isPasswordVisible}
+                  onPress={() => setIsPasswordVisible(!isPasswordVisible)}
+                />
+              </InputWrapper>
+              <ButtonLink onPress={openModal}>
+                <LabelLink>Esqueci Senha</LabelLink>
+              </ButtonLink>
+              <ButtonContainer>
+                <ButtonWrapper>
+                  <Button
+                    isLoading={isLoading}
+                    title="Entrar"
+                    onPress={() => signInWithFirebase(email, password)}
+                  />
+                </ButtonWrapper>
+                <ButtonWrapper>
+                  <Button
+                    titleColor={theme.colors.title}
+                    title="Criar conta gratuita"
+                    onPress={() => navigation.navigate("CreateUser")}
+                    color={theme.colors.background_secondary}
+                  />
+                </ButtonWrapper>
+              </ButtonContainer>
+            </Form>
+          </Container>
+        </KeyboardAvoidingView>
+      </ScrollView>
+      <ModalPassword isVisible={toogleModal} closeModal={closeModal} />
+    </>
+  );
 };
 
 // user Object {
