@@ -1,6 +1,5 @@
 import React from 'react';
 import { Container, Description } from './styles';
-
 export const InfoCard = ({ svg: Svg, description }) => {
 	return (
 		<Container>

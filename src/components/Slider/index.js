@@ -2,7 +2,6 @@ import React, { useRef, useState } from 'react';
 import { FlatList } from 'react-native';
 
 import { Container, IndexWrapper, CarImageWrapper, CarImage, Index } from './styles';
-
 export const Slider = ({ arrayUrl }) => {
 	const [step, setStep] = useState(0);
 

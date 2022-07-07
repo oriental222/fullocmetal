@@ -7,7 +7,6 @@ export const Container = styled.View`
 	height: ${RFValue(92)}px;
 	align-items: center;
 	justify-content: center;
-
 	padding: 16px;
 	margin: 3px;
 `;

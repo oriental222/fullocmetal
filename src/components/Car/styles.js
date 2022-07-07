@@ -5,13 +5,10 @@ import styled from 'styled-components/native';
 export const Container = styled(RectButton)`
 	width: 100%;
 	height: ${RFValue(150)}px;
-
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
-
 	background-color: ${({ theme }) => theme.colors.background_secondary};
-
 	padding: ${RFValue(24)}px;
 	margin-bottom: 15px;
 `;

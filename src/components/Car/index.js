@@ -3,7 +3,6 @@ import { priceReal } from '../../utils/format';
 import { selectSvg } from '../../utils/selectSvg';
 
 import { Container, CarImage, Model, Text, Price, Details, TextWrapper, CarDetails, Brand } from './styles';
-
 export const Car = ({ data, ...rest }) => {
 	const SvgMotor = selectSvg(data.fuel_type);
 

@@ -19,7 +19,6 @@ export const Container = styled(RectButton)`
 export const Content = styled.View`
 	flex: 1;
 	flex-direction: row;
-
 	justify-content: center;
 `;
 
